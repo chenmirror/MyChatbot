@@ -1,0 +1,26 @@
+{
+  "name": "chatbot-sse-backend",
+  "version": "1.0.0",
+  "description": "SSE聊天机器人后端",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "nodemon server.mjs",
+    "init-db": "node database/init-db.mjs"
+  },
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.15.0",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.0",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

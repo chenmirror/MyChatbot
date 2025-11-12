@@ -1,0 +1,23 @@
+/* frontend/src/App.css */
+.App {
+    /* text-align: center; */
+    min-height: 70vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+  }
+  
+  .App-header {
+    color: white;
+    margin-bottom: 30px;
+  }
+  
+  .App-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 2.5rem;
+  }
+  
+  .App-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1.1rem;
+  }
