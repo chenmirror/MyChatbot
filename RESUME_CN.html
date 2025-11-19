@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --text: #1a1a1a;
+        --sub: #4a4a4a;
+        --muted: #707070;
+        --primary: #0f62fe;
+        --border: #e5e7eb;
+        --bg: #ffffff;
+        --chip-bg: #f5f7ff;
+        --chip-text: #2443d7;
+      }
+      @page {
+        size: A4;
+        margin: 14mm 12mm 18mm 12mm;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        padding: 0;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+          "Microsoft YaHei", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.58;
+      }
+      .page {
+        max-width: 794px;
+        margin: 0 auto;
+        padding: 20px 30px 24px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding-bottom: 14px;
+        border-bottom: 2px solid var(--border);
+      }
+      .header-left .name {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .header-left .title {
+        margin-top: 6px;
+        font-size: 15px;
+        color: var(--sub);
+        font-weight: 600;
+      }
+      .header-left .subtitle {
+        margin-top: 4px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .contact {
+        min-width: 200px;
+        text-align: right;
+        font-size: 13px;
+        color: var(--sub);
+      }
+      .contact a { color: inherit; text-decoration: none; }
+      h2 {
+        margin: 18px 0 12px;
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: 0.2px;
+      }
+      h2::before {
+        content: "";
+        width: 4px;
+        height: 15px;
+        background: var(--primary);
+        display: inline-block;
+        border-radius: 2px;
+      }
+      .summary {
+        margin-top: 14px;
+      }
+      .summary ul,
+      .list {
+        margin: 6px 0 0;
+        padding-left: 18px;
+      }
+      .summary li,
+      .list li {
+        margin: 4px 0;
+      }
+      .cards {
+        /* display: grid; */
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        break-inside: avoid;
+      }
+      .card h3 {
+        margin: 0 0 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--sub);
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 8px;
+        margin-top: 6px;
+      }
+      .tag {
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        white-space: nowrap;
+        border: 1px solid rgba(36, 67, 215, 0.2);
+        background: var(--chip-bg);
+        color: var(--chip-text);
+      }
+      .pill {
+        display: inline-block;
+        padding: 1px 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        background: #edf5ff;
+        color: #1f60d6;
+        border: 1px solid #d0e2ff;
+        margin-left: 6px;
+        white-space: nowrap;
+      }
+      .project {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        break-inside: avoid;
+      }
+      .project .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        font-weight: 600;
+      }
+      .project .meta {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .project .body {
+        margin-top: 6px;
+      }
+      .project .body .label {
+        font-weight: 600;
+        color: var(--sub);
+        margin-bottom: 2px;
+      }
+      .work-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--border);
+      }
+      .work-item:last-child {
+        border-bottom: none;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .footer-note {
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 10px;
+      }
+      @media print {
+        .page { padding: 0; }
+        .contact { text-align: left; }
+        a { color: inherit; text-decoration: none; }
+      }
+      /* @media (max-width: 820px) {
+        .header { flex-direction: column; }
+        .contact { text-align: left; }
+        .cards { grid-template-columns: 1fr; }
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div class="header-left">
+          <div class="name">陈静</div>
+          <div class="title">前端开发工程师 / 前端负责人 </div>
+          <div class="subtitle">7.5 年前端经验 · 3 年团队管理 </div>
+        </div>
+        <div class="contact">
+          <div>手机：<a href="tel:18310491395">18310491395</a></div>
+          <div>邮箱：<a href="mailto:1424427487@qq.com">1424427487@qq.com</a></div>
+          <div>GitHub：<a href="https://github.com/chenmirror" target="_blank" rel="noreferrer">chenmirror</a></div>
+          <div>城市：北京 · 可全国远程 / 离职待入职</div>
+        </div>
+      </header>
+
+      <!-- <section class="summary">
+        <h2>职业概述</h2>
+        <ul>
+          <li>3 年前端团队管理经验，统筹 3–7 人团队完成多个政企核心系统 0→1 落地，负责技术方案、排期拆解与质量把控。</li>
+          <li>深耕 Vue3/Vue2、React与工程化体系，擅长组件抽象、性能优化与可视化交互，覆盖前端、桌面端与实时协作场景。具备全栈交付能力：Node.js + Koa</li>
+        </ul>
+      </section> -->
+
+      <section>
+        <h2>关键技术</h2>
+        <ul class="list">
+          <li><strong>前端框架 & UI 框架：</strong>Vue2/3、React（Hooks）、Element Plus/Element UI、Ant Design</li>
+          <li><strong>可视化 & 客户端：</strong>ECharts、TradingView 深度定制；Electron 跨平台客户端交付</li>
+          <li><strong>后端 & 实时：</strong>Node.js + Koa，SSE/WebSocket、JWT 鉴权、弱网心跳 + 指数退避重连</li>
+          <li><strong>数据层：</strong>PostgreSQL 连接池、索引/外键设计、参数化查询</li>
+          <li><strong>工程化：</strong>Webpack 优化（SplitChunks、tree-shaking、bundle analyzer）、CI/CD</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>代表项目</h2>
+
+        <article class="project">
+          <div class="head">
+            <div>智能聊天机器人 Chatbot <span class="pill">React · Tailwind CSS · Koa · SSE · PostgreSQL</span></div>
+            <div class="meta">2025 – 2025｜技术负责人 / 全栈</div>
+          </div>
+          <div class="body">
+            <div class="label">项目概述</div>
+            <ul class="list">
+              <li>自研流式聊天系统，前端将「思考过程」与「最终答案」拆分呈现</li>
+              <li>后端基于 Koa + SSE 与大模型保持实时流，支持弱网环境下的心跳保活与断线重连。</li>
+            </ul>
+            <div class="label">核心职责</div>
+            <ul class="list">
+              <li>从 0→1 主导产品规划、技术选型、架构设计与交付迭代，覆盖前端、后端、数据库。</li>
+              <li>设计消息对象模型与滚动策略，解决多气泡、滚动错乱、消息合并等体验痛点。</li>
+            </ul>
+            <div class="label">成果亮点</div>
+            <ul class="list">
+              <li>长链路稳定输出 30min+，弱网场景重连成功率显著提升；JWT + Refresh Token 保障安全性。</li>
+              <li>PostgreSQL 连接池 + 索引优化，支撑 users/messages 表高并发写入；参数化查询避免 SQL 注入。</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="head">
+            <div>全国远程异地评标平台 <span class="pill">Vue3 · Element Plus · Electron · Pinia · TypeScript</span></div>
+            <div class="meta">2023 – 2025｜前端TL（3–7 人）</div>
+          </div>
+          <div class="body">
+            <div class="label">项目背景</div>
+            <ul class="list">
+              <li>政企远程评标解决方案，覆盖专家端、监督端、后台管理及会议系统，确保异地评标的流程合规与可追溯。</li>
+            </ul>
+            <div class="label">团队职责</div>
+            <ul class="list">
+              <li>搭建前端基座与组件体系，制定开发规约，主持需求评审与版本规划。</li>
+              <li>跨团队协同产品/后端/测试，推动人脸识别、音视频等多方集成。</li>
+            </ul>
+            <div class="label">技术突破</div>
+            <ul class="list">
+              <li>沉淀 20+ 复用业务组件（项目列表、文件上传、人脸识别等），平均需求落地周期缩短 10%。</li>
+              <li>自研分片上传 + 断点续传，大文件上传成功率从 80% 提升至 98%，满足公建文件归档要求。</li>
+              <li>Electron 打包跨平台客户端，解决评标现场设备多样化；facecheck 刷脸准确率约 99.5%。</li>
+              <li>集成好视通会议SDK，封装业务流程组件，集成阿里人脸识别SDK。</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="head">
+            <div>互联评标场地管理系统 <span class="pill">Vue2 · Vuex · Element UI · Avue</span></div>
+            <div class="meta">2024 – 2025｜前端 TL（3 人）</div>
+          </div>
+          <div class="body">
+            <div class="label">职责</div>
+            <ul class="list">
+              <li>前端架构选型与可行性调研，设计多租户隔离方案，负责核心模块交付。</li>
+              <li>制定团队排期，协调资源与风险预警，保障节点按期上线。</li>
+            </ul>
+            <div class="label">成果</div>
+            <ul class="list">
+              <li>多租户隔离：动态路由 + 权限控制 + 配置化主题，使新租户上线周期从 3 天缩短到 0.5 天。</li>
+              <li>Avue 配置化列表方案，满足自定义字段/权限/筛选需求，列表开发效率提升 50%。</li>
+              <li>首个版本上线后支撑 20+ 省市评标场地管控，满足监管与审计要求。</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="head">
+            <div>量化交易监控平台 <span class="pill">React · AntD · TradingView · ECharts</span></div>
+            <div class="meta">2021 – 2022｜前端独立负责人</div>
+          </div>
+          <div class="body">
+            <div class="label">职责 & 成果</div>
+            <ul class="list">
+              <li>独立负责架构、开发与运维，对接量化策略团队，为交易员提供链上与交易所数据分析能力。</li>
+              <li>TradingView 深度定制，实现分时/日线/指标叠加；react-grid-layout 搭建可拖拽仪表盘。</li>
+              <li>Webpack 性能优化：通过 bundle analyzer、SplitChunks、tree-shaking、Uglify 等手段，包体 -60%、构建耗时 -42%、首屏渲染 -56%。</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <h2>工作经历</h2>
+        <div class="work-item">
+          <div><strong>北京中招互连应用科技有限公司</strong>｜前端负责人</div>
+          <div class="muted">2022.08 – 2025.05</div>
+          <div class="muted" style="grid-column: 1 / -1;">
+            负责远程评标系列产品的前端团队管理与技术架构，推进组件库、性能治理、质量规范与工程体系落地，跨部门协同实现业务快速上线。
+          </div>
+        </div>
+        <div class="work-item">
+          <div><strong>鲸算科技有限公司</strong>｜前端工程师</div>
+          <div class="muted">2021.06 – 2022.07</div>
+          <div class="muted" style="grid-column: 1 / -1;">
+            独立负责量化交易可视化平台，聚焦金融图表、实时数据可视化与性能优化。
+          </div>
+        </div>
+        <div class="work-item">
+          <div><strong>太极计算机股份有限公司</strong>｜前端工程师</div>
+          <div class="muted">2018.06 – 2021.06</div>
+          <div class="muted" style="grid-column: 1 / -1;">
+            参与政企项目交付，沉淀企业级表单、权限、配置化方案，完善工程化能力。
+          </div>
+        </div>
+        <div class="work-item">
+          <div><strong>东方国信科技股份有限公司</strong>｜前端工程师</div>
+          <div class="muted">2017.06 – 2018.05</div>
+          <div class="muted" style="grid-column: 1 / -1;">
+            负责企业应用模块开发，打磨组件化基础与跨团队协作能力。
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>教育背景</h2>
+        <div class="cards">
+ 
+            <ul class="list">
+              <li>北华大学｜电子信息科学与技术（本科）2013.09 – 2017.06</li>
+     
+            </ul>
+    
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

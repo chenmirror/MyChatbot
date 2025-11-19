@@ -1,6 +1,5 @@
 // frontend/src/components/ChatWindow.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import './ChatWindow.css';
 
 
 // 辅助函数：生成一个更健壮的唯一ID
@@ -491,43 +490,55 @@ const ChatWindow = () => {
   };
 
   return (
-    <div className="chat-window">
+    <div className="w-full max-w-3xl h-[500px] mx-auto border border-gray-300 rounded-lg flex flex-col bg-white">
       {!token ? (
-        <div className="auth-container">
-          <h2>登录</h2>
-          {loginError && <div className="login-error">{loginError}</div>}
-          <div className="auth-form">
+        <div className="flex-1 flex flex-col items-center justify-center p-5 bg-gray-50 rounded-lg">
+          <h2 className="mb-8 text-gray-800 text-3xl">登录</h2>
+          {loginError && <div className="text-red-600 mb-4 text-center text-sm">{loginError}</div>}
+          <div className="flex flex-col gap-4 w-full max-w-xs">
             <input
               type="text"
               placeholder="用户名"
               value={loginUsername}
               onChange={(e) => setLoginUsername(e.target.value)}
+              className="p-3 h-10 border border-gray-300 rounded-md text-base transition-all focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
             />
             <input
               type="password"
               placeholder="密码"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
+              className="p-3 h-10 border border-gray-300 rounded-md text-base transition-all focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
             />
-            <button onClick={handleLogin}>登录</button>
+            <button 
+              onClick={handleLogin}
+              className="p-3 h-11 bg-blue-600 text-white border-none rounded-md cursor-pointer text-base font-bold transition-colors hover:bg-blue-700"
+            >
+              登录
+            </button>
           </div>
         </div>
       ) : (
         <>
-          <div className="chat-header">
-            <h2>ChatBot</h2>
-            <div className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
+          <div className="p-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
+            <h2 className="m-0 text-gray-800">ChatBot</h2>
+            <div className={`px-3 py-1 rounded-xl text-xs font-bold ${isConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
               {isConnected ? '已连接' : '未连接'}
             </div>
-            <button onClick={handleLogout} className="logout-button">注销</button>
+            <button 
+              onClick={handleLogout}
+              className="px-4 py-2 bg-gray-600 text-white rounded cursor-pointer hover:bg-gray-700"
+            >
+              注销
+            </button>
           </div>
           
-          <div className="messages-container">
+          <div className="flex-1 overflow-y-auto p-5 bg-gray-50">
             {messages.map((message) => (
-              <div key={message.id} className={`message ${message.type}`}>
+              <div key={message.id} className={`mb-4 ${message.type === 'user' ? 'text-right' : message.type === 'ai' ? 'text-left' : 'mx-auto max-w-[90%] text-center'}`}>
                 {message.type === 'ai' && message.thinkingProcess && ( // 渲染每个AI消息的深度思考过程
-                  <div className="thinking-process-wrapper" id={`thinking-${message.id}`}>
-                    <div className="thinking-process-header-toggle" onClick={() => toggleThinkingProcess(message.id)}>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg mb-2.5 p-2.5 shadow-sm block max-w-[80%] pb-0" id={`thinking-${message.id}`}>
+                    <div className="flex justify-between items-center text-sm font-bold text-blue-700 cursor-pointer pb-1.5 border-b border-blue-100 mb-0.5" onClick={() => toggleThinkingProcess(message.id)}>
                       <span>
                         {message.thinkingProcessStatus === 'generating'
                           ? '思考中...'
@@ -536,10 +547,10 @@ const ChatWindow = () => {
                             : 'AI 思考过程' // 默认或未开始的状态
                         }
                       </span>
-                      <span className={message.isThinkingProcessExpanded ? 'expanded' : ''}>{message.isThinkingProcessExpanded ? '▲' : '▼'}</span>
+                      <span className={`transition-transform duration-200 ${message.isThinkingProcessExpanded ? 'rotate-180' : ''}`}>{message.isThinkingProcessExpanded ? '▲' : '▼'}</span>
                     </div>
                     {message.isThinkingProcessExpanded && ( 
-                      <div className="thinking-process-content">
+                      <div className="text-sm leading-relaxed text-gray-800 break-words pt-0.5">
                         {message.thinkingProcess}
                       </div>
                     )}
@@ -547,19 +558,25 @@ const ChatWindow = () => {
                 )}
                 {/* 仅在非AI消息或AI消息的实际回答可见时渲染 message-content */}
                 {message.type !== 'ai' || message.showActualAnswer ? (
-                  <div className="message-content">
+                  <div className={`px-4 py-3 rounded-2xl break-words inline-block max-w-[80%] ${
+                    message.type === 'user' 
+                      ? 'bg-blue-600 text-white rounded-br-sm text-left' 
+                      : message.type === 'ai' 
+                        ? 'bg-white text-gray-800 border border-gray-300 rounded-bl-sm' 
+                        : 'bg-gray-100 text-gray-600 italic'
+                  }`}>
                     {message.type === 'ai' && message.isThinking && !message.showActualAnswer ? (
-                      <div className="typing-indicator">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                      <div className="flex items-center h-5">
+                        <span className="h-2 w-2 bg-gray-400 rounded-full inline-block mx-0.5 animate-typing" style={{ animationDelay: '0.2s' }}></span>
+                        <span className="h-2 w-2 bg-gray-400 rounded-full inline-block mx-0.5 animate-typing" style={{ animationDelay: '0.4s' }}></span>
+                        <span className="h-2 w-2 bg-gray-400 rounded-full inline-block mx-0.5 animate-typing" style={{ animationDelay: '0.6s' }}></span>
                       </div>
                     ) : (
                       message.content
                     )}
                   </div>
                 ) : null /* AI消息在思考过程中，且实际回答不可见时，不渲染气泡内容 */}
-                <div className="message-time">
+                <div className={`text-xs text-gray-500 mt-1 px-2 ${message.type === 'user' ? 'text-right' : ''}`}>
                   {formatTime(message.timestamp)}
                 </div>
               </div>
@@ -567,17 +584,19 @@ const ChatWindow = () => {
             <div ref={messagesEndRef} />
           </div>
           
-          <div className="input-area">
+          <div className="p-4 border-t border-gray-200 flex gap-2.5 bg-white">
             <textarea
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="输入消息..."
               rows="2"
+              className="flex-1 p-3 border border-gray-300 rounded resize-none font-inherit"
             />
             <button 
               onClick={sendMessage} 
               disabled={!inputMessage.trim()}
+              className="px-6 py-3 bg-blue-600 text-white border-none rounded cursor-pointer hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
             >
               发送
             </button>
